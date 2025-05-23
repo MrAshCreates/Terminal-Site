@@ -13,7 +13,8 @@ export default function Terminal() {
     scroll();
   }, []);
 
-  const write = (text) => setLines((l) => [...l, text]);
+  const write = (text, html = false) =>
+  setLines((l) => [...l, { text, html }]);
   const scroll = () => setTimeout(() => termRef.current.scrollTop = termRef.current.scrollHeight, 50);
 
   const handle = async (cmd) => {
@@ -43,15 +44,17 @@ export default function Terminal() {
         break;
         case 'fry ends':
           write('╭────────────┬────────────────────────────────────────────╮');
-          write('│ Name       │ Profile URL                                │');
-          write('├────────────┼────────────────────────────────────────────┤');
-          write(
-            `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`
-          );
-          write(
-            `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`
-          );
-          write('╰────────────┴────────────────────────────────────────────╯');
+write('│ Name       │ Profile URL                                │');
+write('├────────────┼────────────────────────────────────────────┤');
+write(
+  `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`,
+  true
+);
+write(
+  `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`,
+  true
+);
+write('╰────────────┴────────────────────────────────────────────╯');
           break;
       case 'skills':
         ['JavaScript, TypeScript, Python, Rust',
@@ -97,7 +100,11 @@ export default function Terminal() {
 
   return (
     <div ref={termRef} id="app">
-      {lines.map((l,i) => <pre key={i}>{l}</pre>)}
+      {lines.map((l, i) =>
+  l.html
+    ? <div key={i} dangerouslySetInnerHTML={{ __html: l.text }} />
+    : <pre key={i}>{l.text}</pre>
+)}
       <div className="flex items-center">
         <span className="text-green-400">$</span>
         <input
