@@ -17,18 +17,19 @@ export default function Terminal() {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const res = await fetch('/api/me');
+        const res = await fetch('/api/me', { cache: 'no-store' }); // 👈 prevent caching
         const data = await res.json();
         if (data.loggedIn) {
           setUser(data.email);
           addLine(`✅ Logged in as ${data.email}`);
-          // Optionally show secret command
           addLine(`Try 'secret' or 'admin' 😉`);
         }
       } catch (e) {
+        console.warn('[Login Check Failed]', e);
         setUser(null);
       }
     };
+  
     checkLogin();
   }, []);
 

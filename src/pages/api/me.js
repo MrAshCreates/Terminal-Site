@@ -8,3 +8,22 @@ export default function handler(req, res) {
       email
     });
   }
+  
+  let retries = 0;
+const checkLogin = async () => {
+  try {
+    const res = await fetch('/api/me', { cache: 'no-store' });
+    const data = await res.json();
+    if (data.loggedIn) {
+      setUser(data.email);
+      addLine(`✅ Logged in as ${data.email}`);
+    } else throw new Error();
+  } catch {
+    if (retries < 2) {
+      retries++;
+      setTimeout(checkLogin, 500); // try again in half a sec
+    } else {
+      addLine('⚠️ Login failed to verify. Try refreshing.');
+    }
+  }
+};
