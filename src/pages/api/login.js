@@ -1,1 +1,4 @@
-export default function handler(req,res){ const returnTo=encodeURIComponent(req.headers.referer||'/'); res.redirect(`https://dash.cloudflare.com/access/login?redirect_url=${returnTo}`);} 
+export default function handler(req, res) {
+  const returnTo = encodeURIComponent(req.headers.referer || '/');
+  res.redirect(`https://mrashcreates.cloudflareaccess.com/cdn-cgi/access/login?redirect_url=${returnTo}`);
+}
