@@ -16,7 +16,7 @@ export default function Terminal() {
       case 'fry ends':addLine('╭──────────┬────────────────────┮');addLine('│ Name     │ Profile URL        │');addLine('├──────────┼────────────────────┤');addLine(`<span class="cli-link" onclick="window.open('/fryends/ash','_blank')">│ Ash 🐉    │ /fryends/ash        │</span>`,true);addLine(`<span class="cli-link" onclick="window.open('/fryends/danny','_blank')">│ Danny 🔥 │ /fryends/danny       │</span>`,true);addLine('╰──────────┴────────────────────╯');break;
       case 'resume':addLine('Opening resume…');window.open('/Resume.pdf','_blank');break;
       case 'alert':
-        if (!user) return addLine('⛔ Must be logged in to use this command');
+        //if (!user) return addLine('⛔ Must be logged in to use this command');
           const msg = cmd.split(' ').slice(1).join(' ');
         if (!msg) return addLine('Usage: alert <your message>');
         addLine('📤 Sending alert...');
