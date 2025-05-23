@@ -2,6 +2,27 @@ import { useContext } from 'react';
 import { ThemeContext } from '../pages/_app';
 export default function TitleBar({ title, onClose, onMinimize, onMaximize }) {
   const { theme, setTheme } = useContext(ThemeContext);
+  const handleMinimize = () => {
+    const app = document.getElementById('app-container');
+    if (app) app.style.display = 'none';
+    setTimeout(() => {
+    if (app) app.style.display = 'block';
+    }, 1000); // simulate minimize
+    };
+    
+    const handleMaximize = () => {
+    const win = document.querySelector('.window');
+    if (win.classList.contains('maximized')) {
+    win.classList.remove('maximized');
+    win.style.width = '80%';
+    win.style.height = '80vh';
+    } else {
+    win.classList.add('maximized');
+    win.style.width = '100%';
+    win.style.height = '100vh';
+    }
+    };
+    
   return (
     <div className="menu">
       <div className="button red" onClick={onClose}/>
