@@ -33,7 +33,7 @@ export default function Terminal() {
             addLine('❌ Failed to send alert.');
           }
         break;
-      case 'login':addLine('Redirecting to login…');window.location.href='/api/login.js';break;
+      case 'login':addLine('Redirecting to login…');window.location.href='/api/login';break;
       case 'admin':
       case 'secret': if (!user) return addLine('⛔ Unauthorized. Type `login` first.');addLine(`👑 Welcome back, ${user}`);addLine(`• Access granted to hidden features...`);break;
       case 'clear':setLines([]);break;
