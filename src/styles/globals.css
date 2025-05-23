@@ -11,7 +11,7 @@
 }
 /* Theme variables for Warp-style UI surface */
 :root {
-  --bg-image: url('/public/bg.jpg');
+  --bg-image: url('../../public/bg.jpg');
   --transition: 0.3s ease;
 }
 html.dark {
