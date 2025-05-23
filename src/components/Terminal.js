@@ -43,19 +43,19 @@ export default function Terminal() {
          'Materialist. Humanist. Skeptic. Building worlds, one line at a time.'].forEach(write);
         break;
         case 'fry ends':
-          write('╭────────────┬────────────────────────────────────────────╮');
-write('│ Name       │ Profile URL                                │');
-write('├────────────┼────────────────────────────────────────────┤');
-write(
-  `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`,
-  true
-);
-write(
-  `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`,
-  true
-);
-write('╰────────────┴────────────────────────────────────────────╯');
-          break;
+  write('╭────────────┬────────────────────────────────────────────╮');
+  write('│ Name       │ Profile URL                                │');
+  write('├────────────┼────────────────────────────────────────────┤');
+  write(
+    `<span class="cli-link" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`,
+    true
+  );
+  write(
+    `<span class="cli-link" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`,
+    true
+  );
+  write('╰────────────┴────────────────────────────────────────────╯');
+  break;
       case 'skills':
         ['JavaScript, TypeScript, Python, Rust',
          'React, Next.js, Tailwind CSS',

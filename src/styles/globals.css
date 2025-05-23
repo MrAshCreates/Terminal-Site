@@ -2,12 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-.cursor-pointer {
+.cli-link {
+  display: block;
+  color: #8be9fd;
   cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
-.cursor-pointer:hover {
-  color: #94e2d5;
-  text-decoration: underline wavy;
+
+.cli-link:hover {
+  color: #50fa7b;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 /* Theme variables for Warp-style UI surface */
 :root {
