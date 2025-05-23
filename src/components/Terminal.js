@@ -15,6 +15,24 @@ export default function Terminal() {
       case 'projects':addLine('Loading repos…');try{(await fetchRepos()).slice(0,5).forEach(r=>addLine(`• ${r.name}: ${r.html_url}`));}catch{addLine('Error loading repos')}break;
       case 'fry ends':addLine('╭──────────┬────────────────────┮');addLine('│ Name     │ Profile URL        │');addLine('├──────────┼────────────────────┤');addLine(`<span class="cli-link" onclick="window.open('/fryends/ash','_blank')">│ Ash 🐉    │ /fryends/ash        │</span>`,true);addLine(`<span class="cli-link" onclick="window.open('/fryends/danny','_blank')">│ Danny 🔥 │ /fryends/danny       │</span>`,true);addLine('╰──────────┴────────────────────╯');break;
       case 'resume':addLine('Opening resume…');window.open('/Resume.pdf','_blank');break;
+      case 'alert':
+        if (!user) return addLine('⛔ Must be logged in to use this command');
+          const msg = cmd.split(' ').slice(1).join(' ');
+        if (!msg) return addLine('Usage: alert <your message>');
+        addLine('📤 Sending alert...');
+          try {
+            const res = await fetch('/api/alert', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ message: msg })
+            });
+            const data = await res.json();
+            if (data.success) addLine('✅ Alert sent to Discord!');
+            else throw new Error();
+          } catch {
+            addLine('❌ Failed to send alert.');
+          }
+        break;
       case 'login':addLine('Redirecting to login…');window.location.href='/api/login';break;
       case 'admin':
       case 'secret': if (!user) return addLine('⛔ Unauthorized. Type `login` first.');addLine(`👑 Welcome back, ${user}`);addLine(`• Access granted to hidden features...`);break;
