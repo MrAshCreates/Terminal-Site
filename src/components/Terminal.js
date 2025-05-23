@@ -1,117 +1,88 @@
-import { useState, useEffect, useRef } from 'react';
+// src/components/Terminal.js (excerpt)
+import { useState, useEffect, useRef, useContext } from 'react';
+import { ThemeContext } from '../pages/_app';
 import { fetchRepos } from '../utils/github';
 
 export default function Terminal() {
   const [lines, setLines] = useState([]);
   const [input, setInput] = useState('');
-  const history = useRef([]);
-  const idx = useRef(0);
-  const termRef = useRef();
+  const history = useRef([]); let idx = useRef(0);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
-    write('Welcome to my CLI portfolio! Type `help` for commands.');
-    scroll();
-  }, []);
+    addLine(`Welcome to my CLI portfolio — ${theme} mode`);
+    addLine('Type `help` for commands');
+  }, [theme]);
 
-  const write = (text, html = false) =>
-  setLines((l) => [...l, { text, html }]);
-  const scroll = () => setTimeout(() => termRef.current.scrollTop = termRef.current.scrollHeight, 50);
+  const addLine = (text, html = false) =>
+    setLines(l => [...l, { text, html }]);
 
-  const handle = async (cmd) => {
-    write(`$ ${cmd}`);
+  const handleCommand = async (cmd) => {
+    addLine(`$ ${cmd}`);
     switch (cmd) {
       case 'help':
-        ['help — list commands',
-         'projects — show GitHub repos',
-         'skills — list my tech stack',
-         'resume — open my resume',
-         'login — secure login',
-         'theme — toggle light/dark',
-         'clear — clear screen'].forEach(write);
+        ['help — list commands', 'projects — show repos', 
+         'fry ends — view friends', 'resume — open resume', 
+         'login — secure login', 'clear — clear screen']
+         .forEach(t => addLine(t));
         break;
       case 'projects':
-        write('Fetching repos…');
+        addLine('Loading repos…');
         try {
           const repos = await fetchRepos();
-          repos.slice(0, 5).forEach(r => write(`• ${r.name}: ${r.html_url}`));
+          repos.slice(0,5).forEach(r => addLine(`• ${r.name}: ${r.html_url}`));
         } catch {
-          write('Failed to load repos');
+          addLine('Error loading repos');
         }
         break;
-      case 'whoami':
-          ['I\'m Asher Winstead (MrAshCreates), a full-stack dev & terminal enthusiast.',
-         'Materialist. Humanist. Skeptic. Building worlds, one line at a time.'].forEach(write);
+      case 'fry ends':
+        addLine('╭────────────┬────────────────────────╮');
+        addLine('│ Name       │ Profile URL            │');
+        addLine('├────────────┼────────────────────────┤');
+        addLine(
+          `<span class="cli-link" onclick="window.open('/fryends/ash','_blank')">│ Ash 🐉     │ /fryends/ash             │</span>`,
+          true
+        );
+        addLine(
+          `<span class="cli-link" onclick="window.open('/fryends/danny','_blank')">│ Danny 🔥   │ /fryends/danny           │</span>`,
+          true
+        );
+        addLine('╰────────────┴────────────────────────╯');
         break;
-        case 'fry ends':
-  write('╭────────────┬────────────────────────────────────────────╮');
-  write('│ Name       │ Profile URL                                │');
-  write('├────────────┼────────────────────────────────────────────┤');
-  write(
-    `<span class="cli-link" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`,
-    true
-  );
-  write(
-    `<span class="cli-link" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`,
-    true
-  );
-  write('╰────────────┴────────────────────────────────────────────╯');
-  break;
-      case 'skills':
-        ['JavaScript, TypeScript, Python, Rust',
-         'React, Next.js, Tailwind CSS',
-         'Docker, Git, Linux'].forEach(write);
-        break;
-      case 'resume':
-        write('Opening resume…');
-        window.open('public/Resume.pdf', '_blank');
-        break;
-      case 'login':
-        write('Redirecting to login…');
-        window.location.href = '/api/login';
-        break;
-      case 'theme':
-        write('Use titlebar button to toggle theme');
-        break;
-      case 'clear':
-        setLines([]);
-        break;
-      default:
-        write(`command not found: ${cmd}`);
+      // ... other commands ...
+      case 'clear': setLines([]); break;
+      default: addLine(`command not found: ${cmd}`); 
     }
-    scroll();
   };
 
-  const onKey = (e) => {
+  const onKeyDown = e => {
     if (e.key === 'Enter') {
-      const cmd = input.trim();
-      if (!cmd) return;
-      history.current.push(cmd);
-      idx.current = history.current.length;
-      setInput('');
-      handle(cmd);
+      const cmd = input.trim(); if (!cmd) return;
+      history.current.push(cmd); idx.current = history.current.length;
+      setInput(''); handleCommand(cmd);
     } else if (e.key === 'ArrowUp') {
-      idx.current = Math.max(0, idx.current - 1);
-      setInput(history.current[idx.current] || '');
+      idx.current = Math.max(0, idx.current-1);
+      setInput(history.current[idx.current]||'');
     } else if (e.key === 'ArrowDown') {
-      idx.current = Math.min(history.current.length, idx.current + 1);
-      setInput(history.current[idx.current] || '');
+      idx.current = Math.min(history.current.length, idx.current+1);
+      setInput(history.current[idx.current]||'');
     }
   };
 
   return (
-    <div ref={termRef} id="app">
-      {lines.map((l, i) =>
-  l.html
-    ? <div key={i} dangerouslySetInnerHTML={{ __html: l.text }} />
-    : <pre key={i}>{l.text}</pre>
-)}
-      <div className="flex items-center">
+    <div id="app">
+      {lines.map((l,i) => 
+        l.html 
+          ? <div key={i} dangerouslySetInnerHTML={{__html:l.text}}/>
+          : <pre key={i}>{l.text}</pre>
+      )}
+      <div className="flex items-center mt-2">
         <span className="text-green-400">$</span>
         <input
           className="bg-transparent flex-1 ml-2 focus:outline-none"
           value={input}
           onChange={e => setInput(e.target.value)}
-          onKeyDown={onKey}
+          onKeyDown={onKeyDown}
           autoFocus
         />
       </div>
