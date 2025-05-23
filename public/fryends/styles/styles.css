@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, pink, white, black);
+    background-size: 200% 200%;
+    animation: gradientAnimation 10s ease infinite;
+    z-index: -1;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+}
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px; /* Adjust the max-width for your preference */
+    width: 90%; /* Adjust the width for your preference */
+    margin: 20px; /* Adjust the margin for spacing from the screen edges */
+}
+
+#profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 10px solid white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#name {
+    font-size: 2em;
+    margin-top: 10px;
+    color: black;
+    font-family: 'Bubblegum Sans', cursive;
+}
+
+#description {
+    font-size: 1.2em;
+    margin-top: 10px;
+    color: black;
+}
+
+#instagram-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+#instagram-link img {
+    width: 30px;
+    margin-right: 5px;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (max-width: 600px) {
+    .profile-card {
+        width: 90%;
+    }
+}

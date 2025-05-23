@@ -1,6 +1,6 @@
 import '../styles/globals.css';
 import { useState, useEffect, createContext } from 'react';
-
+<link rel="icon" href="public/favicon.ico" />
 export const ThemeContext = createContext();
 
 export default function App({ Component, pageProps }) {

@@ -37,6 +37,22 @@ export default function Terminal() {
           write('Failed to load repos');
         }
         break;
+      case 'whoami':
+          ['I\'m Asher Winstead (MrAshCreates), a full-stack dev & terminal enthusiast.',
+         'Materialist. Humanist. Skeptic. Building worlds, one line at a time.'].forEach(write);
+        break;
+        case 'fry ends':
+          write('╭────────────┬────────────────────────────────────────────╮');
+          write('│ Name       │ Profile URL                                │');
+          write('├────────────┼────────────────────────────────────────────┤');
+          write(
+            `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/ash', '_blank')">│ Ash 🐉     │ /fryends/ash                                 │</span>`
+          );
+          write(
+            `<span class="cursor-pointer text-blue-400 underline" onclick="window.open('/fryends/danny', '_blank')">│ Danny 🔥   │ /fryends/danny                               │</span>`
+          );
+          write('╰────────────┴────────────────────────────────────────────╯');
+          break;
       case 'skills':
         ['JavaScript, TypeScript, Python, Rust',
          'React, Next.js, Tailwind CSS',
@@ -44,7 +60,7 @@ export default function Terminal() {
         break;
       case 'resume':
         write('Opening resume…');
-        window.open('../My_Resume.pdf', '_blank');
+        window.open('public/Resume.pdf', '_blank');
         break;
       case 'login':
         write('Redirecting to login…');
