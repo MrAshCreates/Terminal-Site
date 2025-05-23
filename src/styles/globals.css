@@ -2,90 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+:root { --bg-image: url('../../public/bg.jpg'); --transition: 0.3s ease; }
+html.dark { --surface-bg: rgba(30,30,30,0.6); --text-color: rgba(250,249,246,0.9); }
+html.light { --surface-bg: rgba(250,249,246,0.6); --text-color: rgba(18,18,18,0.9); }
 
-/* add to globals.css */
-/* modal icon fade-out */
-@keyframes fade {
-  0% { opacity:1; transform: scale(1); }
-  100% { opacity:0; transform: scale(1.2); }
-}
-.animate-fade { animation: fade 1.5s forwards; }
-.cli-link { 
-  color: #8be9fd; cursor: pointer;
-  transition: color 0.2s, background 0.2s;
-}
-.cli-link:hover {
-  color: #50fa7b; background: rgba(255,255,255,0.1);
-}
+body { @apply m-0 p-0 h-screen overflow-hidden font-sans; background: var(--bg-image) center/cover no-repeat; }
 
-
-/* Theme variables for Warp-style UI surface */
-:root {
-  --bg-image: url('../../public/bg.jpg');
-  --transition: 0.3s ease;
-}
-html.dark {
-  --surface-bg: rgba(18,18,18,0.75);
-  --text-color: rgba(250,249,246,0.9);
-}
-html.light {
-  --surface-bg: rgba(250,249,246,0.6);
-  --text-color: rgba(18,18,18,0.9);
-}
-
-body {
-  @apply m-0 p-0 h-screen overflow-hidden font-sans;
-  background: var(--bg-image) center/cover no-repeat;
-}
-
-/* Floating “UI surface” window */
 .window {
   @apply mx-auto mt-16 max-w-4xl h-[80vh] border border-gray-600 rounded-xl shadow-xl;
-  background: rgba(255,255,255,0.2);               /* light glass tint */
-  backdrop-filter: blur(16px);                     /* frosted glass  [oai_citation:9‡SquarePlanet](https://hype4.academy/tools/glassmorphism-generator?utm_source=chatgpt.com) */
+  background: var(--surface-bg);
+  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  transition: background 0.3s ease, transform 0.3s ease;
-  display: flex; flex-direction: column; position: relative;
+  transition: background var(--transition), color var(--transition);
+  color: var(--text-color);
+  display: flex; flex-direction: column;
 }
-.window.dark { background: rgba(30,30,30,0.6); }
 
-/* Title bar with controls */
 .menu {
   @apply flex items-center h-8 px-4;
-  background: inherit; border-bottom: 1px solid rgba(255,255,255,0.2);
+  background: var(--surface-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
-.menu .button {
-  @apply w-3 h-3 rounded-full mr-3 cursor-pointer;
-  transition: transform 0.2s ease; 
-}
+.menu .button { @apply w-3 h-3 rounded-full mr-3 cursor-pointer; transition: transform 0.2s; }
 .menu .button:hover { transform: scale(1.2); }
-.menu .red    { background: #ff5f57; }
+.menu .red { background: #ff5f57; }
 .menu .yellow { background: #ffbd2e; }
-.menu .green  { background: #28c940; }
-.menu .title {
-  @apply flex-1 text-center text-sm font-medium;
-  color: inherit;
-}
+.menu .green { background: #28c940; }
+.menu .title { @apply flex-1 text-center text-sm font-medium; }
 
-/* Terminal content area */
 #app {
   @apply flex-1 p-4 overflow-y-auto;
   background: transparent;
-  color: inherit;
-  font-family: 'Fira Code', monospace;              /* monospaced, coding vibe */
+  color: var(--text-color);
+  font-family: 'Fira Code', monospace;
+  white-space: pre-wrap; white-space: break-spaces; word-break: break-word;
 }
 
-/* src/styles/globals.css continued */
+.cli-link { color: #8be9fd; cursor: pointer; transition: color 0.2s, background 0.2s; }
+.cli-link:hover { color: #50fa7b; background: rgba(255,255,255,0.1); }
 
-/* Responsive side padding */
-@media (max-width: 640px) {
-  .window { padding: 0 4%; }                         /* %-based ensures gutter  [oai_citation:10‡Matthew James Taylor](https://matthewjamestaylor.com/responsive-padding?utm_source=chatgpt.com) */
-}
-
-/* Terminal-style line wrapping */
-pre, #app {
-  white-space: pre-wrap;                             /* wrap lines */
-  white-space: break-spaces;                         /* emulate terminal wrapping  [oai_citation:11‡Planet Igalia](https://blogs.igalia.com/jfernandez/2019/06/10/a-new-terminal-style-line-breaking-with-css-text/?utm_source=chatgpt.com) */
-  word-break: break-word;
-}
-
+@media (max-width: 640px) { .window { padding: 0 4%; } }
