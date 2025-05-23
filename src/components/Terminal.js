@@ -44,7 +44,7 @@ export default function Terminal() {
         break;
       case 'resume':
         write('Opening resume…');
-        window.open('/Resume.pdf', '_blank');
+        window.open('../My_Resume.pdf', '_blank');
         break;
       case 'login':
         write('Redirecting to login…');
