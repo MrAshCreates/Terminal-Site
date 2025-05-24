@@ -17,7 +17,7 @@ export default function Terminal() {
   useEffect(() => {
     const checkLogin = async () => {
       try {
-        const res = await fetch('/api/me', { cache: 'no-store' }); // 👈 prevent caching
+        const res = await fetch('/api/me', { cache: 'no-store' });
         const data = await res.json();
         if (data.loggedIn) {
           setUser(data.email);
@@ -25,12 +25,15 @@ export default function Terminal() {
           addLine(`Try 'secret' or 'admin' 😉`);
         }
       } catch (e) {
-        console.warn('[Login Check Failed]', e);
         setUser(null);
       }
     };
   
     checkLogin();
+  
+    // Check again after 5s in case login just happened
+    const interval = setInterval(checkLogin, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   const addLine=(text,html=false)=> setLines(l=>[...l,{text,html}]);
@@ -69,7 +72,7 @@ export default function Terminal() {
           addLine('├──────────┼────────────────────┤');
           addLine(`<span class="cli-link" onclick="window.open('/fryends/ash','_blank')">│ Ash      │ /fryends/ash       │</span>`, true);
           addLine(`<span class="cli-link" onclick="window.open('/fryends/danny','_blank')">│ Danny    │ /fryends/danny     │</span>`, true);
-          addLine(`<span class="cli-link" onclick="window.open('/fryends/kailynn','_blank')">│ Kailynn  │ /fryends/kailynn  │</span>`, true);
+          addLine(`<span class="cli-link" onclick="window.open('/fryends/kailynn','_blank')">│ Kailynn  │ /fryends/kailynn   │</span>`, true);
           addLine('╰──────────┴────────────────────╯');
         } else {
           addLine(`command not found: ${inputCmd}`);
@@ -98,10 +101,41 @@ export default function Terminal() {
         }
         break;
   
-      case 'login':
-        addLine('Redirecting to login…');
-        window.location.href = '/api/login';
-        break;
+        case 'login': {
+          const email = prompt("📧 Enter your email to receive a magic login link:");
+          if (!email) {
+            addLine("Login cancelled.");
+            break;
+          }
+        
+          addLine("📤 Sending magic login link...");
+          try {
+            const res = await fetch('/api/magic-link', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email })
+            });
+        
+            const data = await res.json();
+            if (data.success) {
+              addLine("✅ Magic link sent! Check your inbox.");
+            } else {
+              addLine("❌ Failed to send link.");
+            }
+          } catch (err) {
+            console.error('[login error]', err);
+            addLine("❌ An error occurred.");
+          }
+        
+          break;
+        }
+        
+        case 'logout': {
+          document.cookie = "magic_user=; Max-Age=0; path=/";
+          setUser(null);
+          addLine("👋 Logged out.");
+          break;
+        }
   
       case 'admin':
       case 'secret':
