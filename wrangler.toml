@@ -1,0 +1,3 @@
+[[kv_namespaces]]
+binding = "MAGIC_KV"
+id = "your-kv-namespace-id"
