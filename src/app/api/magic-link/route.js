@@ -1,3 +1,4 @@
+"use client";
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
 import { tokens } from './tokens';

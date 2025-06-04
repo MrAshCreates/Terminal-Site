@@ -1,5 +1,6 @@
+"use client";
 import { useState, useEffect, useRef, useContext } from 'react';
-import { ThemeContext } from '../pages/_app';
+import { ThemeContext } from '../app/layout';
 import { fetchRepos } from '../utils/github';
 
 export default function Terminal() {

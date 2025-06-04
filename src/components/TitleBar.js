@@ -1,5 +1,6 @@
+"use client";
 import { useContext } from 'react';
-import { ThemeContext } from '../pages/_app';
+import { ThemeContext } from '../app/layout';
 export default function TitleBar({ title, onClose, onMinimize, onMaximize }) {
   const { theme, setTheme } = useContext(ThemeContext);
   const handleMinimize = () => {

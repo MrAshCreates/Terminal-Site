@@ -1,3 +1,4 @@
+"use client";
 import { useState } from 'react';
 import TitleBar from './TitleBar';
 export default function WindowWrapper({ children }) {
