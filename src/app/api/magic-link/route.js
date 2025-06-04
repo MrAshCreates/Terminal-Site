@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 const randomBytes = crypto.getRandomValues(new Uint8Array(length));
 import { tokens } from './tokens';
 export const config = {
-  runtime: 'nodejs',
+  runtime: 'edge',
 };
 export async function POST(req) {
   const { email } = await req.json();

@@ -27,5 +27,5 @@ export async function POST(req) {
   }
 }
 export const config = {
-  runtime: 'nodejs',
+  runtime: 'edge',
 };
