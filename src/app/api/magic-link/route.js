@@ -1,6 +1,6 @@
 "use client";
 import { NextResponse } from 'next/server';
-import { randomBytes } from 'crypto';
+const randomBytes = crypto.getRandomValues(new Uint8Array(length));
 import { tokens } from './tokens';
 export const runtime = 'edge';
 export async function POST(req) {
