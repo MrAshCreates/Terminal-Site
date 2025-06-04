@@ -62,7 +62,7 @@ export default function Terminal() {
         window.open('/Resume.pdf', '_blank');
         break;
   
-      case 'msg' || 'wall' || 'echo':
+        case ('msg' || 'wall' || 'echo'):
         if (!argString) return addLine('Usage: [message cmd] <your message>');
         addLine('📤 Sending Message...');
         try {
