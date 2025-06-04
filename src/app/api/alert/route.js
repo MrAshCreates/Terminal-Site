@@ -26,4 +26,6 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Failed to send alert' }, { status: 500 });
   }
 }
-export const runtime = 'edge';
+export const config = {
+  runtime: 'nodejs',
+};
