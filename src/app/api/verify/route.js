@@ -2,9 +2,7 @@
 import { cookies } from 'next/headers';
 import { tokens } from '../magic-link/tokens';
 import { NextResponse } from 'next/server';
-export const config = {
-  runtime: 'edge',
-};
+export const runtime = 'edge';
 export async function GET(req, context) {
   const url = new URL(req.url);
   const token = url.searchParams.get('token');

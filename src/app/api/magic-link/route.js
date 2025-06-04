@@ -2,9 +2,7 @@ import { NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
 import { tokens } from './tokens'; // make sure this is edge-safe
 
-export const config = {
-  runtime: 'edge',
-};
+export const runtime = 'edge';
 
 export async function POST(req) {
   const { email } = await req.json();
