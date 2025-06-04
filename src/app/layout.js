@@ -2,7 +2,7 @@
 import '../styles/globals.css';
 import { useState, useEffect, createContext } from 'react';
 export const ThemeContext = createContext();
-
+export const runtime = "edge";
 export default function RootLayout({ children }) {
   const [theme, setTheme] = useState('dark');
 
