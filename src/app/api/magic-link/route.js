@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { randomBytes } from 'crypto';
+
 import { tokens } from './tokens'; // make sure this is edge-safe
 
 export const runtime = 'edge';
@@ -10,7 +10,9 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Invalid email' }, { status: 400 });
   }
 
-  const token = randomBytes(32).toString('hex');
+  const token = [...crypto.getRandomValues(new Uint8Array(32))]
+  .map(b => b.toString(16).padStart(2, '0'))
+  .join('');
   const env = process.env;
 
   await tokens.set(token, { email, expiresAt: Date.now() + 15 * 60_000 }, 900, env);
