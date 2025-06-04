@@ -1,5 +1,9 @@
-"use client";
 import { NextResponse } from 'next/server';
+
+export const config = {
+  runtime: 'edge',
+};
+
 export async function POST(req) {
   const { message } = await req.json();
 
@@ -26,6 +30,3 @@ export async function POST(req) {
     return NextResponse.json({ error: 'Failed to send alert' }, { status: 500 });
   }
 }
-export const config = {
-  runtime: 'edge',
-};

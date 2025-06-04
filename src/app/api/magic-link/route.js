@@ -1,10 +1,11 @@
-"use client";
 import { NextResponse } from 'next/server';
-const randomBytes = crypto.getRandomValues(new Uint8Array(length));
-import { tokens } from './tokens';
+import { randomBytes } from 'crypto';
+import { tokens } from './tokens'; // make sure this is edge-safe
+
 export const config = {
   runtime: 'edge',
 };
+
 export async function POST(req) {
   const { email } = await req.json();
   if (!email || !email.includes('@')) {
@@ -12,7 +13,8 @@ export async function POST(req) {
   }
 
   const token = randomBytes(32).toString('hex');
-  const env = process.env; // inject or adapt depending on your framework
+  const env = process.env;
+
   await tokens.set(token, { email, expiresAt: Date.now() + 15 * 60_000 }, 900, env);
 
   const link = `${env.BASE_URL}/api/verify?token=${token}`;
