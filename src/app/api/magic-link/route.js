@@ -13,17 +13,16 @@ export async function POST(req) {
   const token = [...crypto.getRandomValues(new Uint8Array(32))]
   .map(b => b.toString(16).padStart(2, '0'))
   .join('');
-  const env = process.env;
 
   await tokens.set(token, { email, expiresAt: Date.now() + 15 * 60_000 }, 900, env);
 
-  const link = `${env.BASE_URL}/api/verify?token=${token}`;
+  const link = `${process.env.BASE_URL}/api/verify?token=${token}`;
 
-  if (env.NODE_ENV === 'production') {
+  if (process.env.Node === 'production') {
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${env.RESEND_API_KEY}`,
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
