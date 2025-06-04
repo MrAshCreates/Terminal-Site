@@ -2,7 +2,9 @@
 import { NextResponse } from 'next/server';
 const randomBytes = crypto.getRandomValues(new Uint8Array(length));
 import { tokens } from './tokens';
-export const runtime = 'edge';
+export const config = {
+  runtime: 'nodejs',
+};
 export async function POST(req) {
   const { email } = await req.json();
   if (!email || !email.includes('@')) {
