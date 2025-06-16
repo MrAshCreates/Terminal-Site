@@ -48,9 +48,9 @@ export default function Terminal() {
           addLine('╭──────────┬────────────────────┮');
           addLine('│ Name     │ Profile URL        │');
           addLine('├──────────┼────────────────────┤');
-          addLine(`<span class="cli-link" onclick="window.open('/fryends/ash','_blank')">│ Ash      │ /fryends/ash       │</span>`, true);
-          addLine(`<span class="cli-link" onclick="window.open('/fryends/danny','_blank')">│ Danny    │ /fryends/danny     │</span>`, true);
-          addLine(`<span class="cli-link" onclick="window.open('/fryends/kailynn','_blank')">│ Kailynn  │ /fryends/kailynn   │</span>`, true);
+          addLine(`<span class="cli-link" onclick="window.open('/fryends/ash.html','_blank')">│ Ash      │ /fryends/ash       │</span>`, true);
+          addLine(`<span class="cli-link" onclick="window.open('/fryends/danny.html,'_blank')">│ Danny    │ /fryends/danny     │</span>`, true);
+          addLine(`<span class="cli-link" onclick="window.open('/fryends/kailynn.html','_blank')">│ Kailynn  │ /fryends/kailynn   │</span>`, true);
           addLine('╰──────────┴────────────────────╯');
         } else {
           addLine(`command not found: ${inputCmd}`);
