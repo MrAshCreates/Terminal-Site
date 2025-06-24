@@ -19,12 +19,12 @@ export async function POST(req) {
     await fetch(webhook, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ content: `📣 Terminal alert: ${message}` })
+      body: JSON.stringify({ content: `📣 Terminal message: ${message}` })
     });
 
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('[DISCORD ALERT FAILED]', err);
-    return NextResponse.json({ error: 'Failed to send alert' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to send message' }, { status: 500 });
   }
 }

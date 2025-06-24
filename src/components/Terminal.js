@@ -42,7 +42,19 @@ export default function Terminal() {
           addLine('Error loading repos');
         }
         break;
-  
+        case 'wget':
+          if (args[0] === 'MySites') {
+            addLine('╭────────────┬────────────────────┮');
+            addLine('│ Site Name  │ Site URL           │');
+            addLine('├────────────┼────────────────────┤');
+            addLine(`<span class="cli-link" onclick="window.open('https://asherwinstead.dev','_blank')">│ Blog/Guides         │ asherwinstead.dev     │</span>`, true);
+            addLine(`<span class="cli-link" onclick="window.open('https://globalgrounds.news,'_blank')">│ News(Not Online)    │ globalgrounds.news    │</span>`, true);
+            addLine('╰────────────┴────────────────────╯');
+          } else {
+            addLine(`command not found: ${inputCmd}`);
+          }
+          break;
+
       case 'fry':
         if (args[0] === 'ends') {
           addLine('╭──────────┬────────────────────┮');
