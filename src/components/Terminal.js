@@ -76,7 +76,7 @@ export default function Terminal() {
 
       case 'rc':
         addLine('Opening Labor Tracker…');
-        window.open('/rc_labor_tracker.html', '_blank');
+        window.open('https://mrashcreates.xyz/rc_labor_tracker.html', '_blank');
         break;
   
         case ('msg' || 'wall' || 'echo'):
