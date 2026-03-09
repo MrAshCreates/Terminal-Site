@@ -73,6 +73,11 @@ export default function Terminal() {
         addLine('Opening resume…');
         window.open('/Resume.pdf', '_blank');
         break;
+
+      case 'rc':
+        addLine('Opening Labor Tracker…');
+        window.open('/rc_labor_tracker.html', '_blank');
+        break;
   
         case ('msg' || 'wall' || 'echo'):
         if (!argString) return addLine('Usage: [message cmd] <your message>');
